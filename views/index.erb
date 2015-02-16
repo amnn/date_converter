@@ -33,6 +33,16 @@
 	      <input type="number" class="form-control" name="ox[week]" id="ox_week" value="1">
 	    </div>
 	  </div>
+
+	  <div class="form-group">
+	    <label class="sr-only" for="ox[day]">Day</label>
+	    <select class="form-control" name="ox[week_day]" id="ox_week_day">
+	      <% DAYS.each_with_index do |day, i| %>
+	      <option value="<%= i %>"><%= day %></option>
+	      <% end %>
+	    </select>
+	  </div>
+
 	  <input type="hidden" name="direction" value="ox->real">
 	  <input type="submit" class="btn btn-primary" value="Convert">
 	</form>
