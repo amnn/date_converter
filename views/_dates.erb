@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label class="sr-only" for="<%= section %>[year]">Year</label>
+  <select class="form-control" name="<%= section %>[year]" id="<%= section %>_year">
+    <% YEARS.each do |year| %>
+    <option value="<%= year %>"><%= year %></option>
+    <% end %>
+  </select>
+</div>
