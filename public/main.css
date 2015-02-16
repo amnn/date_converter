@@ -1,3 +1,16 @@
 .container {
     width: 750px;
 }
+
+#ox_to_real,
+#real_to_ox {
+    padding-bottom: 10px;
+}
+
+#ox_to_real:target,
+#real_to_ox:target {
+    background: #f3f3f3;
+    border:2px solid;
+    border-radius:10px;
+    border-color:#777f7f;
+}
