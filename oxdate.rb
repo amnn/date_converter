@@ -56,5 +56,24 @@ def get_normal_date(ox_date)
   return [result.year, result.month, result.day]
 end
 
-p get_ox_date_simple([2015,1,18])
+def get_ox_date(date_triple)
+  date_normal = Date.new(*date_triple)
+  years = @years.map { |year| year.map { |term| Date.new(*term) + 7 * 3 } } #consider 4th week as the middle of term
+  best_year = years.min_by do |year| 
+    best = year.min_by { |term| (date_normal.mjd - term.mjd).abs  }
+    (date_normal.mjd - best.mjd).abs
+  end
+  best_term = best_year.min_by { |term| (date_normal.mjd - term.mjd).abs  }
+  
+  best_year = years.index(best_year)
+  best_term = years[best_year].index(best_term)
+  
+  cur_full_year = best_year + @years_start
+  cur_term_name = @terms[best_term]
+  days = date_normal.mjd - (Date.new(*@years[best_year][best_term]) - 7).mjd
+  return [cur_full_year.to_s + "-" + (cur_full_year+1).to_s, cur_term_name, days / 7, days % 7 ]
+end
+
+p get_ox_date_simple([2016,1,26])
 p get_normal_date([2014,:hilary, 1, 0]) #note that 2014 means the 2014-2015 year.
+p get_ox_date([2016,1,26])
