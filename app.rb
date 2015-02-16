@@ -1,8 +1,8 @@
 require 'sinatra'
+require 'date'
 
-YEARS = (2014..2020)
-TERMS = %w(Michaelmas Hilary Trinity)
-DAYS  = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
+YEARS  = (2014..2020)
+TERMS  = %w(Michaelmas Hilary Trinity)
 
 get '/' do
   erb :index

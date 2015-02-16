@@ -35,9 +35,9 @@
 	  </div>
 
 	  <div class="form-group">
-	    <label class="sr-only" for="ox[day]">Day</label>
+	    <label class="sr-only" for="ox[week_day]">Day</label>
 	    <select class="form-control" name="ox[week_day]" id="ox_week_day">
-	      <% DAYS.each_with_index do |day, i| %>
+	      <% Date::DAYNAMES.each_with_index do |day, i| %>
 	      <option value="<%= i %>"><%= day %></option>
 	      <% end %>
 	    </select>
@@ -49,6 +49,30 @@
       </div>
       <div class="col-sm-6">
         <h2>Everyone Else</h2>
+	<form action='/'>
+	  <%= erb :_dates, locals: {section: "real"} %>
+
+	  <div class="form-group">
+	    <label class="sr-only" for="real[month]">Month</label>
+	    <select class="form-control" name="real[month]" id="real_month">
+	      <% Date::MONTHNAMES[1..-1].each_with_index do |month,i| %>
+	      <option value="<%= i %>"><%= month %></option>
+	      <% end %>
+	    </select>
+	  </div>
+
+	  <div class="form-group">
+	    <label class="sr-only" for="real[day]">Day</label>
+	    <select class="form-control" name="real[day]" id="real_day">
+	      <% (1..31).each do |day| %>
+	      <option value="<%= day %>"><%= day %></option>
+	      <% end %>
+	    </select>
+	  </div>
+
+	  <input type="hidden" name="direction" value="real->ox">
+	  <input type="submit" class="btn btn-primary" value="Convert">
+	</form>
       </div>
     </div>
   </div>
