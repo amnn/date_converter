@@ -24,18 +24,18 @@ require 'date'
 #input: [year,month,day]
 #output: [string-year,symbol-term,num-week,num-day]
 def get_ox_date_simple(date_triple)
-  @date_normal = Date.new(*date_triple)
+  date_normal = Date.new(*date_triple)
   
-  for @cur_year in 0...@years.length
-    for @cur_term in 0...3
-      @cur_term_start = Date.new(*@years[@cur_year][@cur_term]) - 7 #begin at 0th week
-      @cur_term_end = @cur_term_start + 7 * 9                       #end at 8th week
+  for cur_year in 0...@years.length
+    for cur_term in 0...3
+      cur_term_start = Date.new(*@years[cur_year][cur_term]) - 7 #begin at 0th week
+      cur_term_end = cur_term_start + 7 * 9                       #end at 8th week
       
-      if (@date_normal > @cur_term_start && @date_normal < @cur_term_end)
-        @days = @date_normal.mjd - @cur_term_start.mjd
-        @cur_term_name = @terms[@cur_term]
-        @cur_full_year = @cur_year + @years_start
-        return [@cur_full_year.to_s + "-" + (@cur_full_year+1).to_s, @cur_term_name, @days / 7, @days % 7 ]
+      if (date_normal > cur_term_start && date_normal < cur_term_end)
+        days = date_normal.mjd - cur_term_start.mjd
+        cur_term_name = @terms[cur_term]
+        cur_full_year = cur_year + @years_start
+        return [cur_full_year.to_s + "-" + (cur_full_year+1).to_s, cur_term_name, days / 7, days % 7 ]
       end
     end
   end
@@ -46,14 +46,14 @@ end
 #input: [year,symbol-term,num-week,num-day]
 #output: [year,month,day]
 def get_normal_date(ox_date)
-  @term = @terms.index(ox_date[1])
-  @year = ox_date[0]
-  @week = ox_date[2]
-  @day = ox_date[3]
+  term = @terms.index(ox_date[1])
+  year = ox_date[0]
+  week = ox_date[2]
+  day = ox_date[3]
   
-  @termStart = Date.new(*@years[@year-@years_start][@term]) - 7
-  @result = @termStart + @week * 7 + @day
-  return [@result.year, @result.month, @result.day]
+  @termstart = Date.new(*@years[year-@years_start][term]) - 7
+  result = @termstart + week * 7 + day
+  return [result.year, result.month, result.day]
 end
 
 p get_ox_date_simple([2015,1,18])
