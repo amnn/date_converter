@@ -21,8 +21,8 @@
 	    <label class="sr-only" for="ox[term]">Term</label>
 	    <select class="form-control" name="ox[term]" id="ox_term">
 	      <% TERMS.each do |term| %>
-	      <option value="<%= term.downcase %>" <%= "selected" if params['ox']['term'] == term.downcase %>>
-		<%= term %>
+	      <option value="<%= term %>" <%= "selected" if params['ox']['term'] == term %>>
+		<%= term.capitalize %>
 	      </option>
 	      <% end %>
 	    </select>
