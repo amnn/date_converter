@@ -2,7 +2,9 @@
   <label class="sr-only" for="<%= section %>[year]">Year</label>
   <select class="form-control" name="<%= section %>[year]" id="<%= section %>_year">
     <% YEARS.each do |year| %>
-    <option value="<%= year %>"><%= year %></option>
+    <option value="<%= year %>" <%= "selected" if params[section]['year'].to_i == year %>>
+      <%= year %>
+    </option>
     <% end %>
   </select>
 </div>

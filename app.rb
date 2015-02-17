@@ -20,7 +20,7 @@ get '/' do
   when "real->ox"
     ox['year'], term, ox['week'], ox['week_day'] =
       get_ox_date([real['year'].to_i,
-                   real['month'].to_i+1,
+                   real['month'].to_i,
                    real['day'].to_i])
 
     ox['term'] = term.to_s
