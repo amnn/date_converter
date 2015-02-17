@@ -3,7 +3,7 @@ require 'active_support/all'
 
 TERMS = %w(michaelmas hilary trinity)
 
-def to_year_hash(*dates)
+def year_hash(*dates)
   Hash[TERMS.zip(
         dates.map do |date|
           Date.parse(date)
@@ -11,13 +11,13 @@ def to_year_hash(*dates)
 end
 
 DATES =
-  {2014 => to_year_hash('20141012', '20150118', '20150426'),
-   2015 => to_year_hash('20151017', '20160117', '20160424'),
-   2016 => to_year_hash('20161009', '20170115', '20170423'),
-   2017 => to_year_hash('20171008', '20180114', '20180422'),
-   2018 => to_year_hash('20181007', '20190113', '20190428'),
-   2019 => to_year_hash('20191013', '20200119', '20200426'),
-   2020 => to_year_hash('20201011', '20210117', '20210425')}
+  {2014 => year_hash('20141012', '20150118', '20150426'),
+   2015 => year_hash('20151017', '20160117', '20160424'),
+   2016 => year_hash('20161009', '20170115', '20170423'),
+   2017 => year_hash('20171008', '20180114', '20180422'),
+   2018 => year_hash('20181007', '20190113', '20190428'),
+   2019 => year_hash('20191013', '20200119', '20200426'),
+   2020 => year_hash('20201011', '20210117', '20210425')}
 
 TERM_BY_DATE =
   DATES.each_with_object({}) do |(year, terms), term_by_date|
@@ -28,11 +28,11 @@ TERM_BY_DATE =
 
 YEARS = DATES.keys
 
-def to_real_date(year, term, week, day)
+def real_date(year, term, week, day)
   DATES[year][term] + (week-1).weeks + day.days
 end
 
-def to_ox_date(now)
+def ox_date(now)
   start_date, (year, term) =
     TERM_BY_DATE.min_by do |(start, _)|
       (start - now).abs
@@ -61,12 +61,12 @@ get '/' do
   when "ox->real"
     params['real'] =
       date_to_params(
-        to_real_date(ox['year'].to_i, ox['term'],
-                     ox['week'].to_i, ox['week_day'].to_i))
+        real_date(ox['year'].to_i, ox['term'],
+                  ox['week'].to_i, ox['week_day'].to_i))
 
   when "real->ox"
     ox['year'], ox['term'], ox['week'], ox['week_day'] =
-      to_ox_date(params_to_date(real))
+      ox_date(params_to_date(real))
 
   end
 
